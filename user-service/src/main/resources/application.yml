@@ -7,3 +7,24 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+
+springdoc:
+  # Swagger UI configuration
+  swagger-ui:
+    path: /docs     # Custom path to access the UI (Default: /swagger-ui/index.html)
+    enabled: true                # Set to false to disable Swagger UI in production
+    operations-sorter: method    # Sort endpoints alphabetically by HTTP method (get, post, etc.)
+    tags-sorter: alpha           # Sort controller tags alphabetically
+    try-it-out-enabled: true     # Automatically expands the "Try it out" section
+    filter: true                 # Enables the search/filter box in Swagger UI
+
+  # OpenAPI JSON/YAML spec documentation configuration
+  api-docs:
+    path: /api-docs              # Custom path for the raw OpenAPI spec (Default: /v3/api-docs)
+    enabled: true                # Set to false to disable raw spec generation
+
+  # Packages and paths filtering (Action Required: Update these to match your actual project layout)
+  packages-to-scan: com.glory.userservice.controller # CHANGE THIS to your actual controller package path
+  paths-to-match: /api/**                             # CHANGE OR REMOVE THIS if your endpoints don't start with /api/
+
+
