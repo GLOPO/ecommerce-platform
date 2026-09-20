@@ -1,6 +1,8 @@
 package com.glory.userservice.controller;
 
+import com.glory.userservice.dto.request.LoginRequest;
 import com.glory.userservice.dto.request.UserRegistrationRequest;
+import com.glory.userservice.dto.response.LoginResponse;
 import com.glory.userservice.dto.response.UserResponse;
 import com.glory.userservice.service.UserService;
 import jakarta.validation.Valid;
@@ -26,5 +28,13 @@ public class UserController {
         UserResponse response = userService.register(request);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(
+            @Valid @RequestBody LoginRequest request) {
+        LoginResponse response = userService.login(request);
+
+        return ResponseEntity.ok(response);
     }
 }

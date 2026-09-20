@@ -4,11 +4,13 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.security.Key;
 import java.util.Date;
 
+@Service
 public class JwtService {
 
     private static final String SECRET_KEY = "REPLACE_THIS_WITH_A_LONG_RANDOM_SECRET_KEY_ATLEAST_32_CHARACTERS_LONG";
