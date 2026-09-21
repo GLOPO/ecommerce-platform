@@ -11,6 +11,7 @@ import com.glory.productcatalogservice.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -30,5 +31,22 @@ public class ProductServiceImpl implements ProductService {
         Product saved = productRepository.save(product);
 
         return productMapper.toResponse(saved);
+    }
+
+    @Override
+    public List<ProductResponse> getAllProducts() {
+        List<Product> products = productRepository.findAll();
+
+        return products.stream()
+                .map(productMapper::toResponse)
+                .toList();
+    }
+
+    @Override
+    public ProductResponse getProductById(UUID id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+
+        return productMapper.toResponse(product);
     }
 }
