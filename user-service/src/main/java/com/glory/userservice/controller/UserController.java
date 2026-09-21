@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,5 +44,11 @@ public class UserController {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
         return ResponseEntity.ok(email);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/admin-only")
+    public ResponseEntity<String> adminOnlyEndpoint() {
+        return ResponseEntity.ok("Welcome Admin!😘😘");
     }
 }

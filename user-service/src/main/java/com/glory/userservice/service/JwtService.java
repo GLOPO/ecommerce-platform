@@ -2,12 +2,10 @@ package com.glory.userservice.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
-import java.security.Key;
 import java.util.Date;
 
 @Service
@@ -24,6 +22,7 @@ public class JwtService {
         return Jwts.builder()
                 .subject(email)
                 .claim("role", role)
+                .issuedAt(now)
                 .expiration(expiry)
                 .signWith(key)
                 .compact();
@@ -37,6 +36,16 @@ public class JwtService {
                 .getPayload();
 
         return claims.getSubject();
+    }
+
+    public String extractRole(String token) {
+        Claims claims = Jwts.parser()
+                .verifyWith(key)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+
+        return claims.get("role", String.class);
     }
 
     public boolean isTokenValid(String token) {
