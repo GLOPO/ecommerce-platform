@@ -13,4 +13,8 @@ public interface CategoryService {
     List<CategoryResponse> getAllCategories();
 
     CategoryResponse getCategoryById(UUID id);
+
+    CategoryResponse updateCategory(UUID id, CategoryRequest request);
+
+    void deleteCategory(UUID id);
 }

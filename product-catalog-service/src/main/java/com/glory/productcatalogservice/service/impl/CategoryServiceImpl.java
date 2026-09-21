@@ -44,4 +44,23 @@ public class CategoryServiceImpl implements CategoryService {
 
         return categoryMapper.toResponse(category);
     }
+
+    @Override
+    public CategoryResponse updateCategory(UUID id, CategoryRequest request) {
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Category Not Found"));
+
+        categoryMapper.updateEntityFromRequest(request, category);
+
+        Category saved = categoryRepository.save(category);
+        return categoryMapper.toResponse(saved);
+    }
+
+    @Override
+    public void deleteCategory(UUID id) {
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Category Not Found"));
+
+        categoryRepository.delete(category);
+    }
 }

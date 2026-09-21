@@ -2,6 +2,7 @@ package com.glory.productcatalogservice.controller;
 
 import com.glory.productcatalogservice.dto.request.ProductRequest;
 import com.glory.productcatalogservice.dto.response.ProductResponse;
+import com.glory.productcatalogservice.service.CategoryService;
 import com.glory.productcatalogservice.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import java.util.UUID;
 public class ProductController {
 
     private final ProductService productService;
+    private final CategoryService categoryService;
 
     @PostMapping
     public ResponseEntity<ProductResponse> createProduct(
@@ -40,5 +42,22 @@ public class ProductController {
         ProductResponse product = productService.getProductById(id);
 
         return ResponseEntity.ok(product);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductResponse> updateProduct(
+            @PathVariable UUID id,
+            @Valid @RequestBody ProductRequest request) {
+        ProductResponse response = productService.updateProduct(id, request);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProductByI(
+            @PathVariable UUID id) {
+        productService.deleteProduct(id);
+
+        return ResponseEntity.noContent().build();
     }
 }

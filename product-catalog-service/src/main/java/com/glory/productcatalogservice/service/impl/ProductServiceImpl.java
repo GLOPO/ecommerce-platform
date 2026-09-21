@@ -49,4 +49,23 @@ public class ProductServiceImpl implements ProductService {
 
         return productMapper.toResponse(product);
     }
+
+    @Override
+    public ProductResponse updateProduct(UUID id, ProductRequest request) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+
+        productMapper.updateEntityFromRequest(request, product);
+
+        Product saved = productRepository.save(product);
+        return productMapper.toResponse(saved);
+    }
+
+    @Override
+    public void deleteProduct(UUID id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+
+        productRepository.delete(product);
+    }
 }

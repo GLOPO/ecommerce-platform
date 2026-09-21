@@ -40,4 +40,21 @@ public class CategoryController {
 
         return ResponseEntity.ok(category);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CategoryResponse> updateCategory(
+            @PathVariable UUID id,
+            @Valid @RequestBody CategoryRequest  request) {
+        CategoryResponse response = categoryService.updateCategory(id, request);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCategory(
+            @PathVariable UUID id) {
+        categoryService.deleteCategory(id);
+
+        return ResponseEntity.noContent().build();
+    }
 }
