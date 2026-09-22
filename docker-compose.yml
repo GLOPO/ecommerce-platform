@@ -38,7 +38,21 @@ services:
       - postgres_cart_data:/var/lib/postgresql/data
     restart: always
 
+  postgres_order:
+    image: postgres:16
+    container_name: postgres_order_local
+    environment:
+      POSTGRES_DB: order_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Glory_123
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgres_order_data:/var/lib/postgresql/data
+    restart: always
+
 volumes:
   postgres_data:
   postgres_product_data:
   postgres_cart_data:
+  postgres_order_data:
