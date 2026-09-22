@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -51,5 +53,29 @@ public class CartServiceImpl implements CartService {
         response.setQuantity(saved.getQuantity());
 
         return response;
+    }
+
+    @Override
+    public List<CartItemResponse> getCartItems() {
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        List<CartItem> items = cartItemRepository.findByUserId(UUID.fromString(userId));
+
+        List<CartItemResponse> responses = new ArrayList<>();
+
+        for(CartItem item : items) {
+            ProductInfo product = productClient.getProductById(item.getProductId());
+
+            CartItemResponse response = new CartItemResponse();
+
+            response.setId(item.getId());
+            response.setProductId(product.getId());
+            response.setPrice(product.getPrice());
+            response.setQuantity(item.getQuantity());
+
+            responses.add(response);
+        }
+
+        return responses;
     }
 }
