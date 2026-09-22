@@ -15,7 +15,7 @@ public class JwtService {
     private static final String SECRET_KEY = "REPLACE_THIS_WITH_A_LONG_RANDOM_SECRET_KEY_ATLEAST_32_CHARACTERS_LONG";
     private final SecretKey key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
 
-    public String extractEmail(String token) {
+    public String extractUserId(String token) {
         Claims claims = Jwts.parser()
                 .verifyWith(key)
                 .build()
