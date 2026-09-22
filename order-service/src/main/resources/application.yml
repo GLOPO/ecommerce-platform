@@ -26,3 +26,9 @@ springdoc:
     enabled: true
   packages-to-scan: com.glory.orderservice.controller
   paths-to-match: /api/**
+
+product-service:
+  base-url: http://localhost:8081
+
+cart-service:
+  base-url: hrrp://localhost:8082
