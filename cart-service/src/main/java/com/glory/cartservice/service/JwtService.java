@@ -1,4 +1,5 @@
-package com.glory.userservice.service;
+package com.glory.cartservice.service;
+
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -13,31 +14,6 @@ public class JwtService {
 
     private static final String SECRET_KEY = "REPLACE_THIS_WITH_A_LONG_RANDOM_SECRET_KEY_ATLEAST_32_CHARACTERS_LONG";
     private final SecretKey key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
-    private static final long EXPIRATION_MS = 1000 * 60 * 60;
-
-    public String generateToken(String userId, String email, String role) {
-        Date now = new Date();
-        Date expiry = new Date(now.getTime() + EXPIRATION_MS);
-
-        return Jwts.builder()
-                .subject(userId)
-                .claim("email", email)
-                .claim("role", role)
-                .issuedAt(now)
-                .expiration(expiry)
-                .signWith(key)
-                .compact();
-    }
-
-    public String extractUserId(String token) {
-        Claims claims = Jwts.parser()
-                .verifyWith(key)
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
-
-        return claims.getSubject();
-    }
 
     public String extractEmail(String token) {
         Claims claims = Jwts.parser()
@@ -46,7 +22,7 @@ public class JwtService {
                 .parseSignedClaims(token)
                 .getPayload();
 
-        return claims.get("email",  String.class);
+        return claims.getSubject();
     }
 
     public String extractRole(String token) {

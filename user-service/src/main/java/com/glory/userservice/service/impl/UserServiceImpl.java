@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("Invalid credentials. User not found");
         }
 
-        String token = jwtService.generateToken(user.getEmail(), user.getRole().name());
+        String token = jwtService.generateToken(String.valueOf(user.getId()),user.getEmail(), user.getRole().name());
 
         return new LoginResponse(token);
     }

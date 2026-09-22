@@ -1,6 +1,6 @@
-package com.glory.userservice.security;
+package com.glory.cartservice.security;
 
-import com.glory.userservice.service.JwtService;
+import com.glory.cartservice.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,13 +37,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String token = authHeader.substring(7);
 
         if(jwtService.isTokenValid(token)) {
-            String userId = jwtService.extractUserId(token);
+            String email = jwtService.extractEmail(token);
             String role = jwtService.extractRole(token);
 
             List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_" + role));
 
             UsernamePasswordAuthenticationToken authToken =
-                    new UsernamePasswordAuthenticationToken(userId, null, authorities);
+                    new UsernamePasswordAuthenticationToken(email, null, authorities);
 
             SecurityContextHolder.getContext().setAuthentication(authToken);
         }
