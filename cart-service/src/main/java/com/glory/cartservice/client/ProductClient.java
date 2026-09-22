@@ -1,6 +1,6 @@
 package com.glory.cartservice.client;
 
-import com.glory.cartservice.dto.reponse.ProductInfo;
+import com.glory.cartservice.dto.response.ProductInfo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;

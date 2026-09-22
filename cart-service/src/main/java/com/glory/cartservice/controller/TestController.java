@@ -1,7 +1,7 @@
 package com.glory.cartservice.controller;
 
 import com.glory.cartservice.client.ProductClient;
-import com.glory.cartservice.dto.reponse.ProductInfo;
+import com.glory.cartservice.dto.response.ProductInfo;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
