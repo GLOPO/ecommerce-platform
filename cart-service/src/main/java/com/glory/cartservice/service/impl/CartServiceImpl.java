@@ -78,4 +78,17 @@ public class CartServiceImpl implements CartService {
 
         return responses;
     }
+
+    public void deleteFromCart(UUID cartItemId) {
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        CartItem item = cartItemRepository.findById(cartItemId)
+                .orElseThrow(() -> new IllegalArgumentException("Item doesn't exist"));
+
+        if(!item.getUserId().equals(UUID.fromString(userId))) {
+            throw new IllegalArgumentException("Item doesn't exist");
+        }
+
+        cartItemRepository.deleteById(cartItemId);
+    }
 }

@@ -7,12 +7,10 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @SecurityRequirement(name = "bearerAuth")
 @RestController
@@ -34,5 +32,12 @@ public class CartController {
         List<CartItemResponse> response = cartService.getCartItems();
 
         return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/items/{id}")
+    public ResponseEntity<Void> deleteFromCart(@PathVariable UUID id) {
+        cartService.deleteFromCart(id);
+
+        return ResponseEntity.noContent().build();
     }
 }
